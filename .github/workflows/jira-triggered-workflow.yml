@@ -1,0 +1,15 @@
+# .github/workflows/jira-triggered-workflow.yml
+name: Triggered by Jira Webhook
+
+on:
+  repository_dispatch:
+    types: [jira-issue-created]
+
+jobs:
+  jira-event-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log issue info from Jira
+        run: |
+          echo "Triggered by Jira issue: ${{ github.event.client_payload.issue_key }}"
+          echo "Summary: ${{ github.event.client_payload.summary }}"
